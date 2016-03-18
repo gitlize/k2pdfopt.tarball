@@ -3,7 +3,7 @@
 **
 ** Part of willus.com general purpose C code library.
 **
-** Copyright (C) 2014  http://willus.com
+** Copyright (C) 2015  http://willus.com
 **
 ** This program is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU Affero General Public License as
@@ -20,9 +20,10 @@
 **
 */
 
+#if (!defined(__GNUC__) || __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 8))
 #include "willus.h"
 
-#ifdef WIN32
+#ifdef HAVE_WIN32_API
 #include <windows.h>
 #include <shlobj.h>
 /* #include <process.h> */
@@ -174,4 +175,5 @@ int winshell_get_foldernamew(short *foldername,char *title)
     return(0);
     }
 
-#endif /* WIN32 */
+#endif /* HAVE_WIN32_API */
+#endif /* GNU C version test */
