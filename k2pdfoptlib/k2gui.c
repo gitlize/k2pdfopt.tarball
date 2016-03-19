@@ -2183,8 +2183,6 @@ printf("@k2gui_add_children(already_drawn=%d)\n",already_drawn);
     /*
     wh = crect->bottom-crect->top;
     */
-    nr=(crect->bottom*.3-crect->top)/k2gui->font.size-3;
-    fs=k2gui->font.size;
     /* fontscale calculation:  For Calibri = 1.1, for Arial = 1.0 */
     /*
     if (fontscale<0.1)
@@ -2207,8 +2205,12 @@ printf("@k2gui_add_children(already_drawn=%d)\n",already_drawn);
         if (fontscale < 0.8 || fontscale > 1.25)
             fontscale = 1.0;
         }
-    */
     k2gui->font.size=fs;
+    */
+    nr=(crect->bottom*.3-crect->top)/k2gui->font.size-3.;
+    /* Windows weirdness--works best if nr is even */
+    nr=nr&(~1);
+    fs=k2gui->font.size;
     f2=fs/2;
     f4=fs/4;
     xmar = f2;
@@ -2222,14 +2224,12 @@ printf("@k2gui_add_children(already_drawn=%d)\n",already_drawn);
     */
     for (i=0;i<1;i++)
         {
-        double xl;
         int recreate;
 
-        xl = 1.00;
         x1 = x0;
         w = wmax;
         y1 = y0;
-        h = (k2gui->font.size+2)*nr+4;
+        h = k2gui->font.size*(nr+1);
         control=&k2gui->control[k2gui->ncontrols];
         control->index=100+k2gui->ncontrols;
         k2gui->ncontrols++;
@@ -2241,7 +2241,7 @@ printf("@k2gui_add_children(already_drawn=%d)\n",already_drawn);
             control->rect.top=y1;
             control->rect.right=x1+w-1;
             control->rect.bottom=y1+h-1;
-            control->font.size = k2gui->font.size*xl;
+            control->font.size = k2gui->font.size;
             willusgui_font_get(&control->font);
             strcpy(control->name,"File list");
             control->type=WILLUSGUICONTROL_TYPE_LISTBOX;
@@ -2254,9 +2254,8 @@ printf("@k2gui_add_children(already_drawn=%d)\n",already_drawn);
             willusgui_control_create(control);
             filebox_populate();
             /* Windows Weirdness */
-            h=k2gui->font.size*nr+2;
             control->rect.right++;
-            control->rect.bottom=control->rect.top+h;
+            control->rect.bottom=control->rect.top+k2gui->font.size*nr+2;
             }
         else
             willusgui_control_redraw(control,0);
@@ -2826,7 +2825,7 @@ printf("    control->handle=%p\n",control->handle);
             willusgui_control_init(control);
             if (i==0)
                 control->attrib |= WILLUSGUICONTROL_ATTRIB_READONLY;
-            else if (i==2)
+            else if (i==3)
                 control->attrib |= (WILLUSGUICONTROL_ATTRIB_MULTILINE | WILLUSGUICONTROL_ATTRIB_READONLY);
             strcpy(control->label,label[i]);
             control->labelx=x1;

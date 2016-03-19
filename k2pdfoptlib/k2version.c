@@ -1,4 +1,4 @@
-char *k2pdfopt_version = "v2.34";
+char *k2pdfopt_version = "v2.34a";
 /*
 ** k2version.c  K2pdfopt version number and history.
 **
@@ -18,6 +18,14 @@ char *k2pdfopt_version = "v2.34";
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **
 ** VERSION HISTORY
+**
+** V2.34a 19 MAR 2016
+**           BUG FIX
+**           - Device "Kobo H2O" can now be correctly assigned. (E-mail 3-17-16)
+**           MS WINDOWS GUI BUG FIX
+**           - Fixed "Additional Options" and "Command-line Options" read-only issue.
+**           - Fixed file list box overlapping the output folder box.
+**           - Fixed "Add File" selection of .pdf and .djvu files.
 **
 ** V2.34 18 MAR 2016
 **           ENHANCEMENTS
