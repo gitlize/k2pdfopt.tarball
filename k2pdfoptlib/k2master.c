@@ -528,7 +528,18 @@ printf("gap_start=%d\n\n",gap_start);
 int i;
 printf("\nwordcount=%d\n",words->n);
 for (i=0;i<words->n;i++)
+{
+int j;
 printf("word[%d]='%s'\n",i,words->word[i].text);
+printf("   ");
+for (j=0;words->word[i].text[j]!='\0';j++)
+{
+unsigned char ch;
+ch=(unsigned char)words->word[i].text[j];
+printf(" %02X",ch);
+}
+printf("\n");
+}
 }
 */
         }

@@ -4258,9 +4258,6 @@ static void k2gui_contextmenu_by_control(WILLUSGUICONTROL *control)
         "_magminus_",
             "Decrease Preview Magnification",
             "Decreases the magnification in the preview window.",
-        "opselect",
-            "Output Folder Select",
-            "Selects the output folder for the converted PDF files.",
         "Restore Defaults",
             "Restore Default Settings",
             "The \"Restore Defaults\" button returns all settings "
@@ -4373,6 +4370,21 @@ static void k2gui_contextmenu_by_control(WILLUSGUICONTROL *control)
             "increase or decrease the resolution of "
             "the converted document.  For example, set this to 2 to double "
             "the default output document resolution.",
+        "opfolder",
+            "Output Folder",
+            "The \"Output Folder\" text box shows the name of the folder "
+            "where the converted files will be saved.  You can choose "
+            "this folder by clicking the \"Select\" button next to it.",
+        "opselect",
+            "Output Folder Select",
+            "The \"Select\" button next to the Output Folder text box "
+            "selects the output folder where the converted files will be saved.",
+        "opclear",
+            "Output Folder Clear",
+            "The \"Clear\" button next to the Output Folder text box "
+            "clears the output folder.  With no output folder selected, the "
+            "converted files are saved into the same folder as their associated "
+            "source files.",
         "env",
             "Environment Variable",
             "The \"Environment Variable\" text box shows the value "

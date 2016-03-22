@@ -1,4 +1,4 @@
-char *k2pdfopt_version = "v2.34a";
+char *k2pdfopt_version = "v2.34b";
 /*
 ** k2version.c  K2pdfopt version number and history.
 **
@@ -18,6 +18,12 @@ char *k2pdfopt_version = "v2.34a";
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **
 ** VERSION HISTORY
+**
+** V2.34b 21 MAR 2016
+**           MS WINDOWS BUG FIXES
+**           - Native conversions correctly generate unicode file names
+**             http://www.mobileread.com/forums/showthread.php?p=3284264#post3284264
+**           - GUI correctly provides right-click help on the output folder widgets
 **
 ** V2.34a 19 MAR 2016
 **           BUG FIX
