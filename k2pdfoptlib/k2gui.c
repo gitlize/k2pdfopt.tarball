@@ -121,7 +121,7 @@ printf("@k2gui_main, k2conv=%p, k2settings=%p\n",k2conv0,&k2conv0->k2settings);
     /*
     ** v2.20
     ** Capture non-gui part of command-line options to k2gui->cmdxtra and 
-    ** change k2gui->k2conv->k2settings to that only the GUI cmd-line params
+    ** change k2gui->k2conv->k2settings so that only the GUI cmd-line params
     ** take effect... a bit kludgey.
     */
     {
@@ -2058,7 +2058,8 @@ static void k2gui_add_files(void)
     {
     static char *funcname="k2gui_add_files";
     char *filename;
-    static char *allowed_files="PDF files\0*.pdf\0DJVU files\0*.djvu\0"
+    static char *allowed_files="PDF files\0*.pdf\0"
+                               "DJVU files\0*.djvu\0"
                                "All files\0*\0\0\0";
     int size,status;
 
@@ -2548,7 +2549,7 @@ printf("dst_userwidth_units = %d\n",k2settings->dst_userwidth_units);
     ** Mode select menu
     */
     {
-    static char *modes[]={"default","copy","trim","fitwidth","fitpage","2-column","crop",""};
+    static char *modes[]={"default","copy","trim","fitwidth","fitpage","2-column","crop","concat",""};
     int nmodes;
 
     for (nmodes=0;modes[nmodes][0]!='\0';nmodes++);
@@ -2588,7 +2589,7 @@ printf("dst_userwidth_units = %d\n",k2settings->dst_userwidth_units);
         }
     else
         willusgui_control_redraw(control,0);
-    /* Determine selected device */
+    /* Determine selected mode */
 /*
 printf("settings->s='%s'\n",settings->s);
 */
@@ -2599,6 +2600,11 @@ printf("settings->s='%s'\n",settings->s);
         /* Kludge to correctly select "fitpage", v2.15 */
         if (!strnicmp(&settings->s[i+6],"fp",2) || !strnicmp(&settings->s[i+6],"fitp",4))
             j=4;
+        /* v2.35--correctly set mode to "crop" */
+        else if (!strnicmp(&settings->s[i+6],"cr",2))
+            j=6;
+        else if (!strnicmp(&settings->s[i+6],"cc",2) || !strnicmp(&settings->s[i+6],"con",3))
+            j=7;
         else
             {
             for (j=0;j<nmodes;j++)
@@ -3904,7 +3910,8 @@ printf("@k2gui_preview_make_bitmap...\n");
     strbuf_init(cmdline);
     k2gui_settings_to_cmdline(cmdline,&k2gui->k2conv->k2settings);
     parse_cmd_args(k2conv,k2gui->env,cmdline,&k2gui->cmdxtra,1,1);
-    parse_cmd_args(k2conv,k2gui->env,cmdline,&k2gui->cmdxtra,1,1);
+    /* v2.35--remove duplicate line */
+    /* parse_cmd_args(k2conv,k2gui->env,cmdline,&k2gui->cmdxtra,1,1); */
 
     /* Clear the files and only process the first file */
     willusgui_control_listbox_get_item_text(filelistbox,index,buf);
